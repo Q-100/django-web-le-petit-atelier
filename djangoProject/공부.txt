@@ -51,3 +51,11 @@
     - 명령어치면 앱에 migrations 폴더가 생김
     - makemigrations 를 다시실행하면 바뀐게없다고나옴(모델바뀔때마다 쓰는듯?)
     - makemigrations 치고 migrate 사용
+    ### 마이그레이션 초기화 migrations 폴더 안에 마이그레이션 삭제 -> 데이터베이스 삭제 -> makemigrations -> migrate
+
+10. 연결된 데이터로 조회하기
+    - 1개의 Question모델에는 여러개의 Answer모델이 달릴 수 있음
+    - Answer에는 question이라는 속성이 존재함
+        -> a.question을 사용하면 연결된 질문을 조회가능
+    - Question에는 answer 속성이 없음
+        -> 대신 연결되어있다면 q.연결모델명_set.all()로 연결된 모든 데이터를 조회가능
