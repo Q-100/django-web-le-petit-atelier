@@ -59,3 +59,10 @@
         -> a.question을 사용하면 연결된 질문을 조회가능
     - Question에는 answer 속성이 없음
         -> 대신 연결되어있다면 q.연결모델명_set.all()로 연결된 모든 데이터를 조회가능
+
+11. admin 이용하기
+    - python manage.py createsuperuser
+    - 앱의 admin.py에 from .models import 원하는 모델
+        - admin.site.register(등록할 모델들)
+        - 이러면 장고 관리자페이지에 자동으로 등록됨
+    - 검색 추가가능
