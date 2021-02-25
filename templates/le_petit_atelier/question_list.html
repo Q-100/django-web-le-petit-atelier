@@ -1,0 +1,13 @@
+{% if question_list %} {% comment %} 템플릿 태그({% 와 %}로 둘러쌓여있음) {% endcomment %}
+    <ul>
+    {% for question in question_list %}
+        <li>
+            <a href={% url 'le_petit_atelier:detail' question.id %}> {% comment %}하이퍼링크 /le_petit_atelier/에 question.id를 합친거임{% endcomment %}
+                {{ question.subject }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>질문이 없습니다.</p>
+{% endif %}

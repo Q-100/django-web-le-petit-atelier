@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'qf$^iuk$w@rgdhr@p*#mozn7c2sbtwb45$4uupwj$n#-0^&e=-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True # 오류 화면에 개발자에게 중요한 정보를 알려줌 -> 실제 서비스 할 때는 False로 해야됨
 
 ALLOWED_HOSTS = []
 
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'djangoProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR / 'templates'] # == C:/djangoProject/djangoProject/templates
         ,
         'APP_DIRS': True,
         'OPTIONS': {
