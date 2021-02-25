@@ -143,3 +143,10 @@
             - 2. views.py에서 함수를 호출함
             - 3. 함수는 render를 통해 html에 데이터를 보내 화면을 보여줌
 
+16. 웹페이지에 CSS 적용하기
+    - setting.py에 STATICFILES_DIRS = [BASE_DIR / 'static',] 추가
+    - static 폴더 만들고 그안에 스타일시트를 만듬
+    - html에 적용 할 때엔 맨위에 {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css">
+    추가
+
