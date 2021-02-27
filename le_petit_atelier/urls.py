@@ -10,5 +10,6 @@ urlpatterns = [
     # le_petit_atelier/le_petit_atelier/ 가 되기 때문에 앞에서 처리한걸 뒤에서 또할필요없음
     path('', views.index, name='index'),
     path("<int:question_id>", views.detail, name='detail'),
-    path("answer/create/<int:question_id>", views.answer_create, name="answer_create")
+    path("answer/create/<int:question_id>", views.answer_create, name="answer_create"),
+    path("question/create/", views.question_create, name="question_create"),
 ]

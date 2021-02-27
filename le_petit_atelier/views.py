@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Question
 from django.utils import timezone
+from .forms import QuestionForm
 
 
 # Create your views here.
@@ -40,3 +41,24 @@ def answer_create(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     question.answer_set.create(content=request.POST.get("content"), create_date=timezone.now())
     return redirect("le_petit_atelier:detail", question_id=question.id)
+
+
+def question_create(request):
+    """
+    공부.txt 볼 것
+    :param request:
+    :return:
+    """
+    if request.method == "POST":
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.create_date = timezone.now()
+            question.save()
+            print("POST")
+            return redirect("le_petit_atelier:index")
+    else:
+        form = QuestionForm()
+        print("GET")
+    context = {"form": form}
+    return render(request, "le_petit_atelier/question_form.html", context)

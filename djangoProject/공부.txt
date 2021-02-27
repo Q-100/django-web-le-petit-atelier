@@ -157,4 +157,24 @@
         -> 이러한 것을 막기위해 장고는 템플릿 상속을 지원함
         -> {% extent "상속할 html" %} 후 base.html의 바디에 들어가있는 block을 추가해주면됨
 
+18. 질문 등록하기
+    ○실행순서
+        1. question_list.html에서 질문등록하기 버튼을 누르면 le_petit_atelier:question_create 실행
+        2. urls.py에서 le_petit_atelier:question_create를 찾아 해당하는 함수 실행
+        3. views.question_create를 GET방식으로 요청
+        4. views.py의 question_create 실행하고 GET방식이니까 form에 아무것도 저장하지 않고 form객체를 생성
+        5. 생성한 객체를 render를 이용하여 question_from.html로 보냄
+        6. form안에는 기본적으로 forms.py의 QuestionForm에서 생성한 기본폼인 Question 모델과 subject, content 필드를가짐
+        7. 질문등록화면에서 입력값을 채우고 저장하기 버튼을 누르면 question/create/가 POST 방식으로 요청됨(현재페이지니까)
+        8. 다시 views.question_create 함수가 실행되고
+        9. 이번엔 form에 POST된 데이터를 넣어서 폼객체를 생성함
+        10. form.is_valid()는 POST요청으로 받은 form이 유효한지 검사함(유효하지않으면 폼에 오류저장)
+        11. question = form.save는 Question모델에 저장하는거고 commit=False는 임시저장을 의미함
+        12. 즉, 실제 데이터는 아직 저장되지 않은 상태를 말한다.
+        이렇게 임시 저장을 사용하는 이유는 폼으로 질문 데이터를 저장할 경우
+        Question 모델의 create_date에 값이 설정되지 않아 오류가 발생하기 때문이다(폼에는 현재 subject, content 필드만 있고 create_date 필드는 없다).
+        이러한 이유로 임시 저장을 한 후 question 객체를 반환받아 create_date에 값을 설정한 후 question.save()로 실제 저장하는 것이다.
+            -> form.save(commit=False)대신 form.save()를 수행하면 create_date속성이 없다는 오류 메시지가 나타남
+        13.
+
 
