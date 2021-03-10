@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Question
 from django.utils import timezone
 from .forms import QuestionForm
+from .forms import AnswerForm
 
 
 # Create your views here.
@@ -34,13 +35,27 @@ def answer_create(request, question_id):
         -> request로 넘어온 데이터 중 name이 content인 값
     question.answer_set.create : Question모델을 통해 Answer모델 데이터를 생성하기 위한 코드
         -> Answer모델이 Question 모델을 참조하고있어서 question.answer_set 같은 표현 가능
+    answer = Answer(question = question, content = request.POST.get("content"), create_date = timezone.now())
+    answer.save()도 가능
     :param request: detail.html에서 textarea에 입력된 데이터가 담겨서 넘어옴
     :param question_id: URL 매핑 정보값이 넘어옴
     :return
     """
     question = get_object_or_404(Question, pk=question_id)
-    question.answer_set.create(content=request.POST.get("content"), create_date=timezone.now())
-    return redirect("le_petit_atelier:detail", question_id=question.id)
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.create_date = timezone.now()
+            answer.question = question
+            answer.save()
+            print("POST")
+            return redirect("le_petit_atelier:detail", question_id=question.id)
+    else:
+        form = AnswerForm()
+        print("GET")
+    context = {"question": question, "form": form}
+    return render(request, "le_petit_atelier/question_detail.html", context)
 
 
 def question_create(request):
