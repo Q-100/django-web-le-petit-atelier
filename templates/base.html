@@ -6,9 +6,23 @@
     <meta name = "viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{% static "bootstrap.min.css" %}" type="text/css">
     <link rel="stylesheet" href="{% static "style.css" %}" type="text/css">
-    <title>Title</title>
+    <title>소소한 작업실</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <a class="navbar-brand" href="{% url "le_petit_atelier:index" %}">소소한 작업실</a>
+    <button class="navbar-toggler ml-auto" type="button" data-toggle = "collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">로그인</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 {% block content %}
 {% endblock %}
 </body>
